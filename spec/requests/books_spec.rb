@@ -13,6 +13,19 @@ RSpec.describe "Books", type: :request do
     it 'if book is already reserved, shows an error' do
       post(reserve_book_path(book.id), params: { user_email: 'maria@doe.com' })
       expect(response.status).to eq(422)
+      expect(response.body).to include("Book is not available for reservation")
+    end
+
+    it 'if book does not exist, shows an error' do
+      post(reserve_book_path(0), params: { user_email: 'john@doe.com' })
+      expect(response.status).to eq(404)
+      expect(response.body).to include("Book not found")
+    end
+
+    it 'if user email is not provided, shows an error' do
+      post(reserve_book_path(book.id), params: { user_email: '' })
+      expect(response.status).to eq(422)
+      expect(response.body).to include("User email is required")
     end
   end
 end
