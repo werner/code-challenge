@@ -10,5 +10,9 @@ RSpec.describe "Books", type: :request do
     it 'the book status change to reserved' do
       expect(book.reload.status).to eq('reserved')
     end
+    it 'if book is already reserved, shows an error' do
+      post(reserve_book_path(book.id), params: { user_email: 'maria@doe.com' })
+      expect(response.status).to eq(422)
+    end
   end
 end
