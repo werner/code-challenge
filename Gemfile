@@ -60,4 +60,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "rspec", "~> 3.13"
+  gem 'rspec-rails', '~> 8.0.0'
 end
